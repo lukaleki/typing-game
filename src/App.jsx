@@ -18,10 +18,19 @@ function App() {
     fetchWords();
   }, []);
 
+  function typeCheck() {
+    for (let index = 1; index <= words.length; index++) {
+      let checkWord = words;
+      checkWord.splice(index);
+      checkWord = checkWord[0].split("");
+      for (let i = 0; i < checkWord.length; i++) {}
+    }
+  }
+
   return (
     <>
       <div className="word-container">
-        <textarea type="text" />{" "}
+        <textarea type="text" onKeyDown={typeCheck} />{" "}
         <ul>
           {words.length > 0 ? (
             words.map((word) => <li key={Math.random()}>{word}</li>)

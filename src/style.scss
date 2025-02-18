@@ -19,9 +19,10 @@ body {
 
   textarea {
     position: absolute;
+    z-index: 2;
     width: 1080px;
     height: 103.6px;
-    // background-color: transparent;
+    background-color: transparent;
     border: none;
     outline: none;
     color: rgb(255, 255, 255);
