@@ -18,20 +18,30 @@ function App() {
     fetchWords();
   }, []);
 
-  function typeCheck() {
-    for (let index = 1; index <= words.length; index++) {
-      let checkWord = words;
-      checkWord.splice(index);
-      checkWord = checkWord[0].split("");
-      for (let i = 0; i < checkWord.length; i++) {}
+  let i = 1,
+    j = 0;
+
+  function typeCheck(event) {
+    let checkWord = words;
+    let input = event.target.value.split("");
+    checkWord = checkWord[0].split("");
+    console.log(checkWord.length);
+    console.log(i);
+    // input[i] == checkWord[i] ? console.log("true") : console.log("false");
+    i++;
+    // console.log(i);
+    if (checkWord.length == i) {
+      checkWord = words;
+      checkWord.splice(j++);
+      i = 0;
     }
   }
 
   return (
     <>
       <div className="word-container">
-        <textarea type="text" onKeyDown={typeCheck} />{" "}
         <ul>
+          <textarea type="text" onKeyUp={typeCheck} />{" "}
           {words.length > 0 ? (
             words.map((word) => <li key={Math.random()}>{word}</li>)
           ) : (
