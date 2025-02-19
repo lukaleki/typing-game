@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [words, setWords] = useState([]);
+  const [checkWord, setCheckWord] = useState([]);
   useEffect(() => {
     const fetchWords = async () => {
       try {
@@ -18,23 +19,21 @@ function App() {
     fetchWords();
   }, []);
 
-  let i = 1,
+  let i = 0,
     j = 0;
 
   function typeCheck(event) {
-    let checkWord = words;
-    let input = event.target.value.split("");
-    checkWord = checkWord[0].split("");
-    console.log(checkWord.length);
-    console.log(i);
+    setCheckWord(words);
+    console.log(checkWord);
+    setCheckWord(checkWord.splice(j));
+    setCheckWord(checkWord[0].split(""));
+    // let input = event.target.value.split("");
+
+    // console.log(checkWord);
+    // console.log(i);
     // input[i] == checkWord[i] ? console.log("true") : console.log("false");
     i++;
-    // console.log(i);
-    if (checkWord.length == i) {
-      checkWord = words;
-      checkWord.splice(j++);
-      i = 0;
-    }
+    checkWord.length == i ? j++ : console.log();
   }
 
   return (
