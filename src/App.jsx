@@ -20,20 +20,22 @@ function App() {
   }, []);
 
   let i = 0,
-    j = 0;
+    w = -1;
 
   function typeCheck(event) {
-    setCheckWord(words);
-    console.log(checkWord);
-    setCheckWord(checkWord.splice(j));
-    setCheckWord(checkWord[0].split(""));
-    // let input = event.target.value.split("");
+    if (checkWord.length == i) {
+      w++;
+      let copyWords = words[w];
+      setCheckWord(copyWords.split(""));
+      console.log(checkWord);
+    }
 
-    // console.log(checkWord);
-    // console.log(i);
-    // input[i] == checkWord[i] ? console.log("true") : console.log("false");
+    let input = event.target.value.split("");
+
+    console.log(checkWord);
+    console.log(i);
+    input[i] == checkWord[i] ? console.log("true") : console.log("false");
     i++;
-    checkWord.length == i ? j++ : console.log();
   }
 
   return (
