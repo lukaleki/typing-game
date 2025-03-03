@@ -1,7 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+@keyframes steady-caret {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 body {
@@ -9,6 +22,9 @@ body {
   height: 100vh;
   background-color: rgb(28, 26, 26);
   color: rgb(235, 234, 234);
+  font-family: "Source Code Pro", monospace;
+  font-weight: 300;
+  font-size: large;
 }
 
 .word-container {
@@ -18,10 +34,16 @@ body {
   align-items: center;
 
   textarea {
+    resize: none;
+    caret-shape: block;
+    animation: steady-caret infinite;
+    font-size: large;
+    font-weight: 300;
+    font-family: "Source Code Pro", monospace;
     position: absolute;
     z-index: 2;
     width: 1080px;
-    height: 103.6px;
+    height: 150px;
     background-color: transparent;
     border: none;
     outline: none;
@@ -29,17 +51,12 @@ body {
   }
 
   ul {
+    width: 1080px;
+    height: 150px;
     position: absolute;
     opacity: 0.5;
-    width: 75%;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
     list-style-type: none;
-  }
-
-  li {
-    display: inline-block;
-    word-break: normal;
   }
 }

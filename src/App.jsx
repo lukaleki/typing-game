@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
   const [words, setWords] = useState([]);
-  const [checkWord, setCheckWord] = useState([]);
+  const checkWordRef = useRef([]);
   useEffect(() => {
     const fetchWords = async () => {
       try {
         const res = await fetch(
-          "https://random-word-api.herokuapp.com/word?number=50"
+          "https://random-word-api.vercel.app/api?words=50"
         );
         const data = await res.json();
         setWords(data);
@@ -19,32 +19,45 @@ function App() {
     fetchWords();
   }, []);
 
-  let i = 0,
-    w = -1;
+  let letterIndex = useRef(0),
+    wordIndex = useRef(-1),
+    check = false;
 
   function typeCheck(event) {
-    if (checkWord.length == i) {
-      w++;
-      let copyWords = words[w];
-      setCheckWord(copyWords.split(""));
-      console.log(checkWord);
+    if (event.key === "Backspace" || event.key === " ") {
+      console.log(event.key);
+    } else {
+      if (checkWordRef.current.length === letterIndex.current) {
+        wordIndex.current++;
+        let copyWords = words[wordIndex.current].split("");
+        checkWordRef.current = copyWords;
+        // console.log(i);
+        // console.log(checkWordRef.current);
+        letterIndex.current = 0;
+      }
+
+      // console.log(checkWordRef.current);
+      event.key === checkWordRef.current[letterIndex.current]
+        ? (check = true)
+        : (check = false);
+      // console.log(event.key);
+      // console.log(letterIndex.current);
+      letterIndex.current++;
     }
-
-    let input = event.target.value.split("");
-
-    console.log(checkWord);
-    console.log(i);
-    input[i] == checkWord[i] ? console.log("true") : console.log("false");
-    i++;
   }
 
   return (
     <>
       <div className="word-container">
         <ul>
-          <textarea type="text" onKeyUp={typeCheck} />{" "}
+          <textarea autoFocus type="text" onKeyDown={typeCheck} />{" "}
           {words.length > 0 ? (
-            words.map((word) => <li key={Math.random()}>{word}</li>)
+            words
+              .join(" ")
+              .split("")
+              .map((char, index) => (
+                <li key={index}>{char === " " ? "\u00A0" : char}</li>
+              ))
           ) : (
             <p>error</p>
           )}
