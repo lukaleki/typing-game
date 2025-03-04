@@ -35,13 +35,12 @@ body {
 
   textarea {
     resize: none;
-    caret-shape: block;
-    animation: steady-caret infinite;
+    caret-color: rgb(242, 88, 88);
     font-size: large;
     font-weight: 300;
     font-family: "Source Code Pro", monospace;
     position: absolute;
-    z-index: 2;
+    z-index: -1;
     width: 1080px;
     height: 150px;
     background-color: transparent;
@@ -54,7 +53,6 @@ body {
     width: 1080px;
     height: 150px;
     position: absolute;
-    opacity: 0.5;
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;

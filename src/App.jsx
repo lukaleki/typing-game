@@ -40,11 +40,22 @@ function App() {
       event.key === checkWordRef.current[letterIndex.current]
         ? (check = true)
         : (check = false);
+      changeChar(check);
       // console.log(event.key);
       // console.log(letterIndex.current);
       letterIndex.current++;
     }
   }
+
+  // function changeChar(check) {
+  //   console.log(check);
+  //   console.log(letterIndex);
+  //   if (!check) {
+  //     document.getElementById(letterIndex.current).forEach((el) => {
+  //       el.style.color = "red"; // Change text color
+  //     });
+  //   }
+  // }
 
   return (
     <>
@@ -56,7 +67,9 @@ function App() {
               .join(" ")
               .split("")
               .map((char, index) => (
-                <li key={index}>{char === " " ? "\u00A0" : char}</li>
+                <li id={index} key={index}>
+                  {char === " " ? "\u00A0" : char}
+                </li>
               ))
           ) : (
             <p>error</p>
