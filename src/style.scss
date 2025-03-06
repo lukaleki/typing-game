@@ -7,14 +7,12 @@
   box-sizing: border-box;
 }
 
-@keyframes steady-caret {
-  from,
-  to {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
+.wrong {
+  color: red;
+}
+
+.correct {
+  color: greenyellow;
 }
 
 body {
@@ -34,19 +32,19 @@ body {
   align-items: center;
 
   textarea {
+    color: transparent;
     resize: none;
     caret-color: rgb(242, 88, 88);
     font-size: large;
     font-weight: 300;
     font-family: "Source Code Pro", monospace;
     position: absolute;
-    z-index: -1;
+    z-index: 2;
     width: 1080px;
     height: 150px;
     background-color: transparent;
     border: none;
     outline: none;
-    color: rgb(255, 255, 255);
   }
 
   ul {
