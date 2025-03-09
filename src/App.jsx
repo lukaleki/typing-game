@@ -8,7 +8,7 @@ function App() {
     const fetchWords = async () => {
       try {
         const res = await fetch(
-          "https://random-word-api.vercel.app/api?words=50"
+          "https://random-word-api.vercel.app/api?words=2"
         );
         const data = await res.json();
         setWords(data);
