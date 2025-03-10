@@ -11,10 +11,6 @@
   color: red;
 }
 
-// .correct {
-//   color: greenyellow;
-// }
-
 body {
   width: 100%;
   height: 100vh;
@@ -49,10 +45,11 @@ body {
 
   ul {
     width: 1080px;
-    height: 150px;
+    height: 44.8px;
     position: absolute;
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;
+    overflow-y: hidden;
   }
 }

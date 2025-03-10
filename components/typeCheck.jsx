@@ -1,31 +1,40 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 function TypeCheck({ words }) {
-  const checkWordRef = useRef([]);
   let letterIndex = useRef(0),
-    wordIndex = useRef(-1),
-    charsPassed = useRef(0);
-
+    wordIndex = useRef(0);
+  const activeLetterRef = useRef(null);
   const [input, setInput] = useState([]);
+  const [splitWords, setSplitWords] = useState([]);
 
-  function logic() {
-    charsPassed.current += checkWordRef.current.length;
-    wordIndex.current++;
-    let copyWords = words[wordIndex.current].split("");
-    checkWordRef.current = copyWords;
-    letterIndex.current = 0;
-  }
+  useEffect(() => {
+    if (activeLetterRef.current) {
+      activeLetterRef.current.scrollIntoView({
+        behavior: "smooth", // Smooth scrolling animation
+        block: "center", // Keep the letter centered
+      });
+    }
+  }, [letterIndex]);
+
+  useEffect(() => {
+    if (words.length > 0) {
+      setSplitWords(words.join(" ").split(""));
+    }
+  }, [words]);
 
   function query(event) {
     if (event.key === "Backspace" || event.key === " ") {
       console.log(event.key);
+      letterIndex.current--;
+    } else if (event.key === "Enter") {
       letterIndex.current++;
     } else {
       setInput(event.target.value);
-      checkWordRef.current.length === letterIndex.current
-        ? logic()
-        : console.log(checkWordRef.current);
+      if (words[wordIndex.current].length === letterIndex.current) {
+        wordIndex.current++;
+        letterIndex.current = 0;
+      }
       letterIndex.current++;
     }
   }
@@ -34,26 +43,22 @@ function TypeCheck({ words }) {
     <>
       <div className="word-container">
         <ul>
-          <textarea autoFocus type="text" onKeyDown={query} />{" "}
+          <textarea spellCheck={false} autoFocus type="text" onKeyUp={query} />{" "}
           {words.length > 0 ? (
-            words
-              .join(" ")
-              .split("")
-              .map((char, index) => {
-                const isWrong =
-                  index > charsPassed.current - 1 &&
-                  input[index] &&
-                  input[index] !== checkWordRef.current[index];
+            splitWords.map((char, index) => {
+              const isWrong =
+                input[index] && input[index] !== splitWords[index];
 
-                console.log(charsPassed.current);
-                console.log(index);
-
-                return (
-                  <li className={isWrong ? "wrong" : "correct"} key={index}>
-                    {char === " " ? "\u00A0" : char}
-                  </li>
-                );
-              })
+              return (
+                <li
+                  ref={index === letterIndex ? activeLetterRef : null}
+                  className={isWrong ? "wrong" : "correct"}
+                  key={index}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </li>
+              );
+            })
           ) : (
             <p>error</p>
           )}
