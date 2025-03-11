@@ -11,8 +11,8 @@ function TypeCheck({ words }) {
   useEffect(() => {
     if (activeLetterRef.current) {
       activeLetterRef.current.scrollIntoView({
-        behavior: "smooth", // Smooth scrolling animation
-        block: "center", // Keep the letter centered
+        behavior: "smooth",
+        block: "center",
       });
     }
   }, [letterIndex]);
