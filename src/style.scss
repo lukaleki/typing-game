@@ -28,7 +28,10 @@ body {
   align-items: center;
 
   textarea {
-    color: transparent;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: red;
     resize: none;
     caret-color: rgb(242, 88, 88);
     font-size: large;
@@ -45,7 +48,7 @@ body {
 
   ul {
     width: 1080px;
-    height: 44.8px;
+    height: 67.2px;
     position: absolute;
     display: flex;
     flex-wrap: wrap;

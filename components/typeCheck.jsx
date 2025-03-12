@@ -37,15 +37,22 @@ function TypeCheck({ words }) {
       }
       letterIndex.current++;
     }
+    console.log(words);
   }
 
   return (
     <>
       <div className="word-container">
         <ul>
-          <textarea spellCheck={false} autoFocus type="text" onKeyUp={query} />{" "}
+          <textarea
+            wrap="hard"
+            spellCheck={false}
+            autoFocus
+            type="text"
+            onKeyUp={query}
+          />{" "}
           {words.length > 0 ? (
-            splitWords.map((char, index) => {
+            words.map((char, index) => {
               const isWrong =
                 input[index] && input[index] !== splitWords[index];
 
@@ -55,12 +62,12 @@ function TypeCheck({ words }) {
                   className={isWrong ? "wrong" : "correct"}
                   key={index}
                 >
-                  {char === " " ? "\u00A0" : char}
+                  {`${char === " " ? "\u00A0" : char}\u00A0`}
                 </li>
               );
             })
           ) : (
-            <p>error</p>
+            <p>loading...</p>
           )}
         </ul>
       </div>
