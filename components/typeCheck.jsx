@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 function TypeCheck({ words }) {
   let letterIndex = useRef(0),
-    wordIndex = useRef(0);
+    wordNum = useRef(0);
   const activeLetterRef = useRef(null);
   const [input, setInput] = useState([]);
   const [splitWords, setSplitWords] = useState([]);
@@ -31,8 +31,8 @@ function TypeCheck({ words }) {
       letterIndex.current++;
     } else {
       setInput(event.target.value);
-      if (words[wordIndex.current].length === letterIndex.current) {
-        wordIndex.current++;
+      if (words[wordNum.current].length === letterIndex.current) {
+        wordNum.current++;
         letterIndex.current = 0;
       }
       letterIndex.current++;
@@ -43,7 +43,7 @@ function TypeCheck({ words }) {
   return (
     <>
       <div className="word-container">
-        <ul>
+        <div className="container">
           <textarea
             wrap="hard"
             spellCheck={false}
@@ -52,24 +52,36 @@ function TypeCheck({ words }) {
             onKeyUp={query}
           />{" "}
           {words.length > 0 ? (
-            words.map((char, index) => {
-              const isWrong =
-                input[index] && input[index] !== splitWords[index];
-
-              return (
-                <li
-                  ref={index === letterIndex ? activeLetterRef : null}
-                  className={isWrong ? "wrong" : "correct"}
-                  key={index}
-                >
-                  {`${char === " " ? "\u00A0" : char}\u00A0`}
-                </li>
-              );
-            })
+            words.map((word, wordIndex) => (
+              <React.Fragment key={wordIndex}>
+                <ul>
+                  {word.length > 0 ? (
+                    word.split("").map((char, index) => {
+                      const isWrong =
+                        input[index] &&
+                        input[index] !== splitWords[index] &&
+                        words[wordIndex];
+                      return (
+                        <li
+                          ref={index === letterIndex ? activeLetterRef : null}
+                          className={isWrong ? "wrong" : "correct"}
+                          key={index}
+                        >
+                          {`${char === " " ? "\u00A0" : char}`}
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <p>error...</p>
+                  )}
+                </ul>
+                &nbsp;
+              </React.Fragment>
+            ))
           ) : (
             <p>loading...</p>
           )}
-        </ul>
+        </div>
       </div>
     </>
   );

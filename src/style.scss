@@ -31,7 +31,7 @@ body {
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    color: red;
+    color: transparent;
     resize: none;
     caret-color: rgb(242, 88, 88);
     font-size: large;
@@ -46,13 +46,18 @@ body {
     outline: none;
   }
 
-  ul {
+  .container {
+    display: flex;
+    flex-wrap: wrap;
     width: 1080px;
     height: 67.2px;
     position: absolute;
-    display: flex;
-    flex-wrap: wrap;
-    list-style-type: none;
+    word-break: break-all;
     overflow-y: hidden;
+  }
+
+  ul {
+    list-style-type: none;
+    display: flex;
   }
 }
